@@ -1,0 +1,42 @@
+-- Define function to draw colored loading bar
+local function drawLoadingBar(x, y, width, progress, barColor, bgColor)
+    term.setBackgroundColor(bgColor)
+    term.setCursorPos(x, y)
+    term.write(string.rep(" ", width))
+
+    local fillWidth = math.floor(progress * width)
+    term.setCursorPos(x, y)
+    term.setBackgroundColor(barColor)
+    term.write(string.rep(" ", fillWidth))
+    term.setBackgroundColor(colors.black)
+end
+
+-- Clear the screen
+term.clear()
+term.setCursorPos(1, 1)
+
+-- Print the colored title
+term.setTextColor(colors.blue)
+term.setBackgroundColor(colors.yellow)  -- Background color for the title
+print("Pixel.Os")
+term.setTextColor(colors.white)
+
+-- Display loading message
+term.setCursorPos(1, 6)
+print("Loading...")
+
+-- Draw a colorful loading bar
+local totalSteps = 10  -- Adjust the total number of steps as needed
+for step = 1, totalSteps do
+    local progress = step / totalSteps
+    drawLoadingBar(1, 7, 20, progress, colors.green, colors.gray)
+    sleep(0.2)  -- Faster sleep duration
+end
+
+-- Reset the screen and text color
+term.setBackgroundColor(colors.black)
+term.clear()
+term.setCursorPos(1, 1)
+
+-- Launch the menu
+shell.run(".menu")
